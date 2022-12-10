@@ -22,6 +22,17 @@ public class Product {
         CatID = catID;
     }
 
+    public Product( String proName) {
+        this.ProID = -1;
+        this.ProName = proName;
+    }
+
+
+    public Product( int proID,String proName) {
+        this.ProID = proID;
+        this.ProName = proName;
+    }
+
     public int getProID() {
         return ProID;
     }

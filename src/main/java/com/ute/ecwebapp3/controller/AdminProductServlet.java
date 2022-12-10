@@ -1,8 +1,7 @@
 package com.ute.ecwebapp3.controller;
 
-import com.ute.ecwebapp3.beans.Category;
+
 import com.ute.ecwebapp3.beans.Product;
-import com.ute.ecwebapp3.models.CategoryModel;
 import com.ute.ecwebapp3.models.ProductModel;
 import com.ute.ecwebapp3.utils.ServletUtils;
 
@@ -29,30 +28,30 @@ public class AdminProductServlet extends HttpServlet {
                     ServletUtils.forward("/views/vwProduct/Index.jsp", request,response);
                     break;
 
-//                case "/Add":
-//                    ServletUtils.forward("/views/vwCategory/Add.jsp", request,response);
-//                    break;
-//
-//                case "/Edit":
-//                    int id = 0;
-//                    try {
-//                             id = Integer.parseInt(request.getParameter("id"));
-//                    } catch (NumberFormatException e) {
-//
-//                    }
-//                    Category c = CategoryModel.findByID(id);
-//
-//                    if (c != null) {
-//                        request.setAttribute("category",c);
-//                        ServletUtils.forward("/views/vwCategory/Edit.jsp",request,response);
-//                    }
-//                    else {
-//                        ServletUtils.redirect("/Admin/Category",request,response);
-////                        ServletUtils.forward("/views/204.jsp",request,response);
-//
-//                    }
-//                    ServletUtils.forward("/views/vwCategory/Edit.jsp", request,response);
-//                    break;
+                case "/Add":
+                    ServletUtils.forward("/views/vwProduct/Add.jsp", request,response);
+                    break;
+
+                case "/Edit":
+                    int id = 0;
+                    try {
+                             id = Integer.parseInt(request.getParameter("id"));
+                    } catch (NumberFormatException e) {
+
+                    }
+                    Product c = ProductModel.findByID(id);
+
+                    if (c != null) {
+                        request.setAttribute("Product",c);
+                        ServletUtils.forward("/views/vwProduct/Edit.jsp",request,response);
+                    }
+                    else {
+                        ServletUtils.redirect("/Admin/Product",request,response);
+//                        ServletUtils.forward("/views/204.jsp",request,response);
+
+                    }
+                    ServletUtils.forward("/views/vwProduct/Edit.jsp", request,response);
+                    break;
 
 
                 default:
@@ -63,45 +62,45 @@ public class AdminProductServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        String path = request.getPathInfo();
-//        switch (path) {
-//            case "/Add":
-//                addCategory(request, response);
-//                break;
-//
-//            case "/Delete":
-//                deleteCategory(request,response);
-//                break;
-//
-//            case "/Update":
-//                updateCategory(request,response);
-//                break;
-//
-//            default:
-//                ServletUtils.forward("/views/404.jsp", request,response);
-//                break;
-//        }
-//    }
+        String path = request.getPathInfo();
+        switch (path) {
+            case "/Add":
+                addProduct(request, response);
+                break;
 
-//    private static void addCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        String name = request.getParameter("CatName");
-//        Category c= new Category(name);
-//        CategoryModel.add(c);
-//        ServletUtils.forward("/views/vwCategory/Add.jsp", request, response);
-//    }
-//
-//    private static void updateCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        int id = Integer.parseInt(request.getParameter("CatID"));
-//        String name = request.getParameter("CatName");
-//        Category c= new Category(id,name);
-//        CategoryModel.update(c);
-//        ServletUtils.redirect("/Admin/Category",request,response);
-//    }
-//
-//    private static void deleteCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        int id = Integer.parseInt(request.getParameter("CatID"));
-//        CategoryModel.delete(id);
-//        ServletUtils.redirect("/Admin/Category",request,response);
-//    }
+            case "/Delete":
+                deleteProduct(request,response);
+                break;
+
+            case "/Update":
+                updateProduct(request,response);
+                break;
+
+            default:
+                ServletUtils.forward("/views/404.jsp", request,response);
+                break;
+        }
+    }
+
+    private static void addProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("ProName");
+        Product c= new Product(name);
+        ProductModel.add(c);
+        ServletUtils.forward("/views/vwProduct/Add.jsp", request, response);
+    }
+
+    private static void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("ProID"));
+        String name = request.getParameter("ProName");
+        Product c= new Product(id,name);
+        ProductModel.update(c);
+        ServletUtils.redirect("/Admin/Product",request,response);
+    }
+
+    private static void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("ProID"));
+        ProductModel.delete(id);
+        ServletUtils.redirect("/Admin/Product",request,response);
     }
 }
+

@@ -20,9 +20,6 @@ public class AdminCategoryServlet extends HttpServlet {
             }
             switch (path) {
                 case "/Index":
-
-//                    Category c = new Category(1,"Sách");
-//                    request.setAttribute("category",c);
                     List<Category>  list = CategoryModel.findAll();
                     request.setAttribute("categories",list);
                     ServletUtils.forward("/views/vwCategory/Index.jsp", request,response);

@@ -32,7 +32,7 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th><Category</th>
+                                <th>Category</th>
                                 <th>&nbsp;</th>
                             </tr>
                             </thead>

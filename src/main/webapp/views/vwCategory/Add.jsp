@@ -18,7 +18,7 @@
                             <label for="txtCatName">Category</label>
                             <input type="text" class="form-control" id="txtCatName" autofocus name="CatName">
                         </div>
-                </div
+                </div>
                 <div class="card-footer ">
                         <a  class="btn btn-outline-success  " href="${pageContext.request.contextPath}/Admin/Category/" role="button">
                             <i class="fa fa-backward" aria-hidden="true"></i>

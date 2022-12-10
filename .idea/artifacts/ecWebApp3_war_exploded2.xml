@@ -1,0 +1,30 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="ecWebApp3:war exploded2">
+    <output-path>$PROJECT_DIR$/out/artifacts/ecWebApp3_war_exploded2</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="ecWebApp3" />
+          <element id="library" level="application" name="bootstrap" />
+          <element id="library" level="application" name="bootstrap-icons" />
+          <element id="library" level="application" name="jquery-3.6.1" />
+          <element id="library" level="application" name="Chart.js" />
+          <element id="library" level="application" name="font-awesome" />
+          <element id="library" level="application" name="jquery" />
+          <element id="library" level="application" name="jquery-2.2.4" />
+          <element id="library" level="application" name="jquery-3.5.1.slim" />
+          <element id="library" level="application" name="popper.js" />
+          <element id="library" level="application" name="twitter-bootstrap" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.apache.taglibs:taglibs-standard-spec:1.2.5" />
+          <element id="library" level="project" name="Maven: com.mysql:mysql-connector-j:8.0.31" />
+          <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.19.4" />
+          <element id="library" level="project" name="Maven: org.sql2o:sql2o:1.6.0" />
+          <element id="library" level="project" name="Maven: org.apache.taglibs:taglibs-standard-impl:1.2.5" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="ecWebApp3/web/Web" />
+    </root>
+  </artifact>
+</component>

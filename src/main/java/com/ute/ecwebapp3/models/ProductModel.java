@@ -17,6 +17,16 @@ public class ProductModel {
         }
     }
 
+    public static List<Product> findByCatId(int catId) {
+        final String query = "select * from products where CatID = :CatID";
+        try (Connection con = DButils.getConnection()) {
+            return con.createQuery(query)
+                    .addParameter("CatID",catId)
+                    .executeAndFetch(Product.class);
+
+        }
+    }
+
     public static Product findByID(int id) {
         final String query = "select * from products where ProID= :ProID  ";
         try (Connection con = DButils.getConnection()) {
