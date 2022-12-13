@@ -7,12 +7,9 @@ import com.ute.ecwebapp3.utils.ServletUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -20,37 +17,37 @@ import java.time.format.DateTimeFormatter;
 public class AccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            String path = request.getPathInfo();
-            switch (path) {
-                case "/Register":
-                    ServletUtils.forward("/views/vwAccount/Register.jsp", request,response);
-                    break;
+        String path = request.getPathInfo();
+        switch (path) {
+            case "/Register":
+                ServletUtils.forward("/views/vwAccount/Register.jsp", request, response);
+                break;
 
-                case "/Login":
-                    ServletUtils.forward("/views/vwAccount/Login.jsp", request,response);
-                    break;
+            case "/Login":
+                ServletUtils.forward("/views/vwAccount/Login.jsp", request, response);
+                break;
 
-                case "/Profile":
-                    ServletUtils.forward("/views/vwAccount/Profile.jsp", request,response);
-                    break;
+            case "/Profile":
+                ServletUtils.forward("/views/vwAccount/Profile.jsp", request, response);
+                break;
 
-                case "/IsAvailable":
-                    String username = request.getParameter("user");
-                    User user = UserModel.findByUsername(username);
-                    boolean isAvailable = (user == null);
+            case "/IsAvailable":
+                String username = request.getParameter("user");
+                User user = UserModel.findByUsername(username);
+                boolean isAvailable = (user == null);
 
-                    PrintWriter out = response.getWriter();
-                    response.setContentType("application/json");
-                    response.setCharacterEncoding("utf-8");
+                PrintWriter out = response.getWriter();
+                response.setContentType("application/json");
+                response.setCharacterEncoding("utf-8");
 
-                    out.print(isAvailable);
-                    out.flush();
-                    break;
+                out.print(isAvailable);
+                out.flush();
+                break;
 
-                default:
-                    ServletUtils.forward("/views/404.jsp", request,response);
-                    break;
-            }
+            default:
+                ServletUtils.forward("/views/404.jsp", request, response);
+                break;
+        }
     }
 
     @Override
@@ -65,11 +62,17 @@ public class AccountServlet extends HttpServlet {
                 login(request, response);
                 break;
 
+            case "/Logout":
+                logout(request, response);
+                break;
+
+
             default:
                 ServletUtils.forward("/views/404.jsp", request, response);
                 break;
         }
     }
+
     private static void registerUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String rawpwd = request.getParameter("rawpwd");
         String bcryptHashString = BCrypt.withDefaults().hashToString(12, rawpwd.toCharArray());
@@ -89,9 +92,45 @@ public class AccountServlet extends HttpServlet {
     }
 
     private static void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        String name = request.getParameter("CatName");
-//        Category c= new Category(name);
-//        CategoryModel.add(c);
-//        ServletUtils.forward("/views/vwCategory/Add.jsp", request, response);
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        User user = UserModel.findByUsername(username);
+        if (user != null) {
+            BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), user.getPassword());
+            if (result.verified) {
+                HttpSession session = request.getSession();
+                session.setAttribute("auth",true);
+                session.setAttribute("authUser",user);
+//                response.addCookie(new Cookie("ecWebAppAuthUser",user.getUsername()));
+
+                String url = (String) session.getAttribute("retUrl");
+                if (url == null)
+                    url = "/Home";
+                ServletUtils.redirect(url, request, response);
+            } else {
+                request.setAttribute("hasError", true);
+                request.setAttribute("errorMessage", "Invalid login");
+                ServletUtils.forward("/views/vwAccount/Login.jsp", request, response);
+            }
+        } else{
+                request.setAttribute("hasError", true);
+                request.setAttribute("errorMessage", "Invalid login");
+                ServletUtils.forward("/views/vwAccount/Login.jsp", request, response);
+            }
+        }
+
+    private static void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+                HttpSession session = request.getSession();
+                session.setAttribute("auth",false);
+                session.setAttribute("authUser",new User());
+
+
+                String url = request.getHeader("referer");
+                if (url == null)
+                    url = "/Home";
+                ServletUtils.redirect(url,request,response);
     }
 }
+
+

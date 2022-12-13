@@ -3,7 +3,7 @@
 
 <jsp:useBean id="categoriesWithDetails" scope="request" type="java.util.List<com.ute.ecwebapp3.beans.Category>"/>
 
-<div class="card">
+<div class="card ml-2">
     <h4 class="card-header">
         Categories
     </h4>
@@ -19,7 +19,7 @@
 <%--        </a>--%>
     </div>
 </div>
-<div class="card mt-3">
+<div class="card mt-3 ml-2">
     <h4 class="card-header">
         Featured
     </h4>

@@ -19,6 +19,10 @@ public class HomeServlet extends HttpServlet {
         }
         switch (path) {
             case "/Index":
+//                HttpSession session = request.getSession();
+//                System.out.println(session.getAttribute("auth"));
+//                System.out.println(session.getAttribute("authUser"));
+
                 ServletUtils.forward("/views/vwHome/Index.jsp", request,response);
                 break;
             case "/About":

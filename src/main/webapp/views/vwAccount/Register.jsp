@@ -86,11 +86,11 @@
                         </div>
                         <div class="form-group ">
                             <label for="txtPassword">Password</label>
-                            <input type="text" class="form-control" id="txtPassword"  name="rawpwd">
+                            <input type="password" class="form-control" id="txtPassword"  name="rawpwd">
                         </div>
                         <div class="form-group ">
                             <label for="txtConfirm">Confirm</label>
-                            <input type="text" class="form-control" id="txtConfirm" name="confirm" >
+                            <input type="password" class="form-control" id="txtConfirm" name="confirm" >
                         </div>
 
                     <h5 class="mt-4">Personal Information </h5>
